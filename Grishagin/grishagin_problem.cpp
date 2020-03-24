@@ -1,5 +1,5 @@
 ﻿#include "grishagin_problem.h"
-#include "pugixml.hpp"
+#include "../src/pugixml.hpp"
 
 #include <math.h>
 #include <string>

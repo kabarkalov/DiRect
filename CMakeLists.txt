@@ -13,6 +13,8 @@ if(MSVC)
   add_definitions("-D_VARIADIC_MAX=10")
 endif()
 
+set(pugixml pugixml)
+
 set(SCL_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin CACHE STRING "Output directory")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG   ${SCL_OUTPUT_DIRECTORY})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${SCL_OUTPUT_DIRECTORY})
@@ -24,7 +26,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${SCL_OUTPUT_DIRECTORY})
 # set common include folder for module
 set(COMMON_INCLUDES ${PROJECT_SOURCE_DIR}/src)
 
-file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
-add_executable(${PROJECT_NAME_STR}_test ${SRC_FILES})
+file(GLOB SRC_FILES "${PROJECT_SOURCE_DIR}/src/*.c" "${PROJECT_SOURCE_DIR}/src/*.cpp")
+file(GLOB hdrs "${PROJECT_SOURCE_DIR}/src/*.h*" "${PROJECT_SOURCE_DIR}/src/*.hpp*" "${PROJECT_SOURCE_DIR}/src/parameters/*.h*")
+
+
+add_executable(${PROJECT_NAME_STR}_test ${SRC_FILES} ${srcs} ${hdrs})
 add_subdirectory(Grishagin)
 add_subdirectory(Rastrigin2)

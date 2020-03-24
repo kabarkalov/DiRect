@@ -1,7 +1,7 @@
 #ifndef __GRISHAGINPROBLEM_H__
 #define __GRISHAGINPROBLEM_H__
 
-#include "../GlobalSearch/problem_interface.h"
+#include "../src/problem_interface.h"
 #include "grishagin_function.h"
 
 class TGrishaginProblem : public IProblem

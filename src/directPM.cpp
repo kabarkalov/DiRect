@@ -6,7 +6,7 @@
 
 #include "direct.h"
 #include "problem_manager.h"
-#include "baseParameters.h"
+#include "parameters/baseParameters.h"
 
 
 #define PI 3.14159265359

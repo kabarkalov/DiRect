@@ -1,7 +1,7 @@
 #ifndef __RASTRIGINPROBLEM_H__
 #define __RASTRIGINPROBLEM_H__
 
-#include "../GlobalSearch/problem_interface.h"
+#include "../src/problem_interface.h"
 
 class TRastriginProblem : public IProblem
 {
