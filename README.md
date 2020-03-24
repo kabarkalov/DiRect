@@ -1,0 +1,2 @@
+# DiRect
+DiRect  globalizer problem
