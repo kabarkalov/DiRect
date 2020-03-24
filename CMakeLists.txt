@@ -26,3 +26,5 @@ set(COMMON_INCLUDES ${PROJECT_SOURCE_DIR}/src)
 
 file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
 add_executable(${PROJECT_NAME_STR}_test ${SRC_FILES})
+add_subdirectory(Grishagin)
+add_subdirectory(Rastrigin2)
