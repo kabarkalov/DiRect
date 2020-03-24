@@ -86,19 +86,11 @@ int main(int argc, char **argv)
       return 0;
     IProblem* problem = manager.GetProblem();
 
-    TCombinableBaseParameters* newProblem = dynamic_cast<TCombinableBaseParameters*>(problem);
-    
 
     err = problem->SetDimension(2);
     err = problem->SetConfigPath(problepConf);
     err = problem->Initialize();
     
-    if(newProblem != NULL)
-    {
-      double l[] = {0.5, 0.5};
-      std::string s = "0.5_0.5";
-      newProblem->SetVal("Lamda", s);
-    }
     int dimension = problem->GetDimension();
     double* lower_bounds = new double[dimension];//[2] = { -1, -1 };
     double* upper_bounds = new double[dimension];// [2] = { 1, 1 };
