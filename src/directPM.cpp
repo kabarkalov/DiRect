@@ -104,7 +104,7 @@ int main(int argc, char **argv)
     int max_iter = 10000; // Maximum number of algorithm iterations (different from max);
     double magic_eps     = 0.0001;
     double magic_eps_abs = 0.0001;
-    double volume_reltol = 0.0001; // מבתול
+    double volume_reltol = 0.0001; // מבתול!!!
     double sigma_reltol  = 0.00000;//9; // 
     int force_stop = false;
 
