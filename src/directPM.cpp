@@ -15,11 +15,14 @@ int trialCount = 0;
 bool isFindOptim = false;
 int iter = 0;
 double** points = 0;
+/// Точность с которой ищем решение
+double methodAccuracy = 0.01;
+
 double objective(int N, const double *x, int *undefinedFlag, void *data) 
 {
   if (points != 0)
   {
-    points[trialCount] = new double [N];
+    points[trialCount] = new double [N + 1];
     for (int k = 0; k < N; k++)
     {
       points[trialCount][k] = x[k];
@@ -37,8 +40,11 @@ double objective(int N, const double *x, int *undefinedFlag, void *data)
   problem->GetBounds(lower_bounds, upper_bounds);
 
   sum = problem->CalculateFunctionals(x, 0);
-
-  double Epsilon = 0.01;
+  if (points != 0)
+  {
+    points[trialCount - 1][N] = sum;
+  }
+  double Epsilon = methodAccuracy;
   bool res = true;
   if (err != 0)
     res = false;
@@ -104,7 +110,7 @@ int main(int argc, char **argv)
     int max_iter = 10000; // Maximum number of algorithm iterations (different from max);
     double magic_eps     = 0.0001;
     double magic_eps_abs = 0.0001;
-    double volume_reltol = 0.0001; // объем!!!
+    double volume_reltol = methodAccuracy / sqrt(dimension); /// 100.0; // объем!!!// поделить на корень из N
     double sigma_reltol  = 0.00000;//9; // 
     int force_stop = false;
 
@@ -155,12 +161,12 @@ int main(int argc, char **argv)
       std::string pointLogName = argv[3];
       FILE* pointLog = fopen(pointLogName.c_str(), "w");
 
-      fprintf(pointLog, "%d\n", iter);
-      for (int i = 0; i < iter; i++)
+      fprintf(pointLog, "%d\n", trialCount);
+      for (int i = 0; i < trialCount; i++)
       {
         for (int j = 0; j < dimension; j++)
           fprintf(pointLog, "%lf ", points[i][j]);
-        fprintf(pointLog, "\n");
+        fprintf(pointLog, "| %lf\n", points[i][dimension]);
       }
 
       //for (int j = 0; j < dimension; j++)
@@ -168,15 +174,17 @@ int main(int argc, char **argv)
       //fprintf(pointLog, "\n");
 
       for (int j = 0; j < dimension; j++)
-        fprintf(pointLog, "%lf ", points[iter - 1][j]);
-      fprintf(pointLog, "\n");
+        fprintf(pointLog, "%lf ", points[trialCount - 1][j]);
+      fprintf(pointLog, "| %lf\n", points[trialCount - 1][dimension]);
 
       double* BestTrialy = new double [dimension];
       int err = problem->GetOptimumPoint(BestTrialy);
+      double optVal = 0;
+      problem->GetOptimumValue(optVal);
 
-      for (int j = 0; j < dimension - 1; j++)
+      for (int j = 0; j < dimension; j++)
         fprintf(pointLog, "%lf ", BestTrialy[j]);
-      fprintf(pointLog, "%lf", BestTrialy[dimension - 1]);
+      fprintf(pointLog, "| %lf", optVal);
 
       fclose(pointLog);
       delete [] points;
